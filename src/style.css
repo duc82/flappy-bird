@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+canvas {
+  border: 1px solid #000;
+  background-image: url("./assets/images/background-day.png");
+}
+
+#result {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+}
+
+#result h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+#result h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+#score {
+  color: #f39c12;
+}
+
+#restart {
+  padding: 10px 20px;
+  background-color: #f39c12;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#restart:hover {
+  background-color: #e67e22;
+}
