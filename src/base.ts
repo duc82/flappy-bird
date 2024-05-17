@@ -6,23 +6,25 @@ class Base {
   private img: HTMLImageElement | null = null;
   public x: number = 0;
   public x2: number;
-  public y: number = 0;
-  public height: number = 0;
+  public y: number;
+  public width: number;
+  public height: number;
 
-  constructor(game: Game) {
+  constructor(game: Game, width: number, height: number) {
     this.game = game;
+    this.width = width;
+    this.height = height;
 
-    const img = new Image();
+    const img = new Image(width, height);
     img.src = base;
 
     img.onload = () => {
       this.img = img;
-      this.y = this.game.canvas.height - img.height;
-      this.height = img.height;
-      this.game.height = this.game.canvas.height - this.height;
     };
 
-    this.x2 = this.game.width;
+    this.y = this.game.canvas.height - this.height;
+
+    this.x2 = this.width;
   }
 
   draw() {
@@ -31,14 +33,14 @@ class Base {
         this.img,
         this.x,
         this.y,
-        this.game.width,
+        this.width,
         this.height
       );
       this.game.ctx.drawImage(
         this.img,
         this.x2,
         this.y,
-        this.game.width,
+        this.width,
         this.height
       );
     }
@@ -47,12 +49,12 @@ class Base {
   update() {
     this.x -= 5;
     this.x2 -= 5;
-    if (this.x <= -this.game.width) {
-      this.x = this.game.width;
+    if (this.x <= -this.width) {
+      this.x = this.width;
     }
 
-    if (this.x2 <= -this.game.width) {
-      this.x2 = this.game.width;
+    if (this.x2 <= -this.width) {
+      this.x2 = this.width;
     }
   }
 }

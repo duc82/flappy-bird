@@ -1,5 +1,4 @@
 import Game from "./game";
-import hit from "./assets/audios/hit.ogg";
 
 class Pipe {
   private game: Game;
@@ -68,8 +67,6 @@ class Pipe {
             this.game.canvas.height - this.bottomPipeHeight[i])
       ) {
         this.game.gameOver = true;
-        const audio = new Audio(hit);
-        audio.play();
         break;
       }
 

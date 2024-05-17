@@ -1,8 +1,6 @@
 import yellowBirdDownFlap from "./assets/images/yellowbird-downflap.png";
 import yellowBirdMidFlap from "./assets/images/yellowbird-midflap.png";
 import yellowBirdUpFlap from "./assets/images/yellowbird-upflap.png";
-import wing from "./assets/audios/wing.ogg";
-import hit from "./assets/audios/hit.ogg";
 import Game from "./game";
 
 class Bird {
@@ -11,19 +9,14 @@ class Bird {
   public y: number;
   public width: number = 0;
   public height: number = 0;
-  public color: string;
   public velocity: number;
   public gravity: number;
   public jump: number;
-  public birdImages: string[] = [
-    yellowBirdDownFlap,
-    yellowBirdMidFlap,
-    yellowBirdUpFlap,
-  ];
-  public birdImg: HTMLImageElement | null = null;
+  public birdImages: HTMLImageElement[] = [];
   public birdIndex = 0;
   public drawCount: number = 0;
   public degree: number = 0;
+  public wingAudio = document.querySelector<HTMLAudioElement>("#wing")!;
 
   constructor(
     game: Game,
@@ -31,7 +24,6 @@ class Bird {
     y: number,
     width: number,
     height: number,
-    color: string,
     velocity: number,
     gravity: number,
     jump: number
@@ -41,18 +33,19 @@ class Bird {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.color = color;
     this.velocity = velocity;
     this.gravity = gravity;
     this.jump = jump;
 
-    const img = new Image(width, height);
-    img.src = this.birdImages[this.birdIndex];
-
-    img.onload = () => {
-      this.birdImg = img;
-      this.birdIndex = (this.birdIndex + 1) % this.birdImages.length;
-    };
+    const birdDownFlap = new Image(width, height);
+    birdDownFlap.src = yellowBirdDownFlap;
+    this.birdImages.push(birdDownFlap);
+    const birdMidFlap = new Image(width, height);
+    birdMidFlap.src = yellowBirdMidFlap;
+    this.birdImages.push(birdMidFlap);
+    const birdUpFlap = new Image(width, height);
+    birdUpFlap.src = yellowBirdUpFlap;
+    this.birdImages.push(birdUpFlap);
   }
 
   drawRotatedImage(
@@ -81,21 +74,20 @@ class Bird {
   }
 
   draw() {
-    if (!this.birdImg) return;
-    this.drawRotatedImage(this.birdImg, this.x, this.y, this.degree);
+    this.drawRotatedImage(
+      this.birdImages[this.birdIndex],
+      this.x,
+      this.y,
+      this.degree
+    );
+    this.drawCount++;
+    if (this.drawCount >= 5) {
+      this.birdIndex = (this.birdIndex + 1) % this.birdImages.length;
+      this.drawCount = 0;
+    }
   }
 
   update() {
-    this.drawCount++;
-    if (this.drawCount >= 5 && this.birdImg) {
-      this.birdImg.src = this.birdImages[this.birdIndex];
-      this.birdImg.onload = () => {
-        this.birdIndex = (this.birdIndex + 1) % this.birdImages.length;
-      };
-
-      this.drawCount = 0;
-    }
-
     this.velocity += this.gravity;
     this.y += this.velocity;
 
@@ -117,15 +109,12 @@ class Bird {
       this.y = this.height;
       this.velocity = 0;
       this.game.gameOver = true;
-      const audio = new Audio(hit);
-      audio.play();
     }
   }
 
   flap() {
     this.velocity = this.jump;
-    const audio = new Audio(wing);
-    audio.play();
+    this.wingAudio.play();
   }
 }
 

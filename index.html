@@ -7,7 +7,17 @@
     <title>Flappy Bird</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <audio id="hit" preload="auto" hidden>
+        <source src="/src/assets/audios/hit.ogg" type="audio/ogg" />
+        <source src="/src/assets/audios/hit.wav" type="audio/wav" />
+      </audio>
+      <audio id="wing" preload="metadata" hidden>
+        <source src="/src/assets/audios/wing.ogg" type="audio/ogg" />
+        <source src="/src/assets/audios/wing.wav" type="audio/wav" />
+      </audio>
+    </div>
+
     <script type="module" src="/src/game.ts"></script>
   </body>
 </html>
