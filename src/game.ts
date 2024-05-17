@@ -1,6 +1,6 @@
 import "./style.css";
 import Bird from "./bird";
-import Pipe from "./pipe";
+// import Pipe from "./pipe";
 import Base from "./base";
 import gameOverImg from "./assets/images/gameover.png";
 import message from "./assets/images/message.png";
