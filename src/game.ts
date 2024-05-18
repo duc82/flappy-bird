@@ -23,6 +23,7 @@ class Game {
   public hitAudio = document.querySelector<HTMLAudioElement>("#hit")!;
   public dieAudio = document.querySelector<HTMLAudioElement>("#die")!;
   public animationFrame: number | null = null;
+  public speed: number = 2.5;
 
   constructor(width: number, height: number) {
     this.canvas = this.createCanvas(width, height);
@@ -47,7 +48,7 @@ class Game {
     this.pipes = new Pipe(
       this,
       50,
-      125 //gap
+      125 // gap
     );
 
     this.point = new Point(this, this.canvas.width / 2, 25);
@@ -91,12 +92,12 @@ class Game {
       return;
     }
 
-    this.ctx.strokeStyle = "rgb(82,49,3)";
-    this.ctx.lineWidth = 5;
-    this.ctx.strokeRect(20, 25, 30, 30);
+    // this.ctx.strokeStyle = "rgb(82,49,3)";
+    // this.ctx.lineWidth = 5;
+    // this.ctx.strokeRect(20, 25, 30, 30);
 
-    this.ctx.fillStyle = "rgb(224,97,25)";
-    this.ctx.fillRect(20, 25, 30, 30);
+    // this.ctx.fillStyle = "rgb(224,97,25)";
+    // this.ctx.fillRect(20, 25, 30, 30);
 
     this.point.draw();
 
@@ -125,8 +126,7 @@ class Game {
     this.pipes = new Pipe(
       this,
       50,
-      125
-      //gap
+      125 // gap
     );
     this.score = 0;
     this.gameOver = false;
@@ -165,7 +165,16 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-game.canvas.onclick = () => {
+game.canvas.onmousedown = () => {
+  if (game.gameOver) return;
+
+  if (!game.started) {
+    game.started = true;
+  }
+  game.bird.flap();
+};
+
+game.canvas.ontouchstart = () => {
   if (game.gameOver) return;
 
   if (!game.started) {

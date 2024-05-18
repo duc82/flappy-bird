@@ -47,8 +47,8 @@ class Base {
   }
 
   update() {
-    this.x -= 5;
-    this.x2 -= 5;
+    this.x -= this.game.speed;
+    this.x2 -= this.game.speed;
     if (this.x <= -this.width) {
       this.x = this.width;
     }

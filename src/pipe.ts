@@ -64,7 +64,7 @@ class Pipe {
   }
 
   update() {
-    if (this.game.frames % 60 === 0) {
+    if (this.game.frames % 100 === 0) {
       const minHeightPipe = 100;
       const pipeHeight = this.randomInt(
         minHeightPipe,
@@ -76,7 +76,7 @@ class Pipe {
     }
 
     for (let i = 0; i < this.position.length; i++) {
-      this.position[i] -= 5;
+      this.position[i] -= this.game.speed;
       // Check if bird hits the pipe
       if (
         this.game.bird.x < this.position[i] + this.width &&
