@@ -54,13 +54,12 @@ class Bird {
     y: number,
     degree: number
   ) {
+    const radian = (degree * Math.PI) / 180; // Convert degree to radian
     this.game.ctx.save();
 
     this.game.ctx.translate(x + image.width / 2, y + image.height / 2);
 
-    this.game.ctx.rotate(
-      degree * (Math.PI / 180) // Convert degree to radian
-    );
+    this.game.ctx.rotate(radian);
 
     this.game.ctx.drawImage(
       image,
@@ -93,9 +92,9 @@ class Bird {
 
     // Rotate the bird
     if (this.velocity >= 0) {
-      this.degree = Math.min(90, this.degree + 3);
+      this.degree = Math.min(90, this.degree + 5);
     } else {
-      this.degree = -30;
+      this.degree = -25;
     }
 
     // Check if bird hits the top of the canvas

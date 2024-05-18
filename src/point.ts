@@ -62,9 +62,11 @@ class Point {
     const scoreWidth = scoreArray.length * 24;
 
     for (let i = 0; i < scoreArray.length; i++) {
+      const x = this.x - scoreWidth / 2 + i * 24;
+
       this.game.ctx.drawImage(
         this.pointImages[parseInt(scoreArray[i])],
-        this.x - scoreWidth / 2 + i * 24,
+        x,
         this.y
       );
     }
